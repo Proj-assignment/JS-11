@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        background: white;
+        font-family: Arial, sans-serif;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        color: #000;
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 40px;
+        border-radius: 5px;
+        background: linear-gradient(to bottom, #f3f716, #f411e5);
+      }
+      .container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        border: none;
+        border-radius: 4px;
+        background-color: #fff;
+        color: #000;
+      }
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+      }
+      .checkbox-group label {
+        margin-right: 10px;
+      }
+      .validation-message {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+      }
+      .submit-btn {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #3f2b96;
+        color: #fff;
+        cursor: pointer;
+      }
+      .submit-btn:hover {
+        background-color: #241663;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Registration Form</h2>
+      <form id="registration-form">
+        <div class="form-group">
+          <label for="firstname">First Name:</label>
+          <input type="text" id="firstname" name="firstname" required />
+          <div class="validation-message" id="firstname-validation"></div>
+        </div>
+        <div class="form-group">
+          <label for="lastname">Last Name:</label>
+          <input type="text" id="lastname" name="lastname" required />
+          <div class="validation-message" id="lastname-validation"></div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+          <div class="validation-message" id="email-validation"></div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+          <div class="validation-message" id="password-validation"></div>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Re-enter Password:</label>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm-password"
+            required
+          />
+          <div
+            class="validation-message"
+            id="confirm-password-validation"
+          ></div>
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender:</label>
+          <select id="gender" name="gender" required>
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+          <div class="validation-message" id="gender-validation"></div>
+        </div>
+        <div class="form-group">
+          <label for="age">Age:</label>
+          <input type="number" id="age" name="age" required />
+          <div class="validation-message" id="age-validation"></div>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number:</label>
+          <input type="text" id="phone" name="phone" required />
+          <div class="validation-message" id="phone-validation"></div>
+        </div>
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <textarea id="address" name="address" required></textarea>
+          <div class="validation-message" id="address-validation"></div>
+        </div>
+        <div class="form-group">
+          <label for="state">State:</label>
+          <input type="text" id="state" name="state" required />
+          <div class="validation-message" id="state-validation"></div>
+        </div>
+        <div class="form-group">
+          <label for="country">Country:</label>
+          <input type="text" id="country" name="country" required />
+          <div class="validation-message" id="country-validation"></div>
+        </div>
+        <div class="form-group">
+          <label>Languages Known:</label>
+          <div class="checkbox-group">
+            <label for="english">English</label>
+            <input
+              type="checkbox"
+              id="english"
+              name="languages"
+              value="english"
+            />
+            <label for="spanish">Spanish</label>
+            <input
+              type="checkbox"
+              id="spanish"
+              name="languages"
+              value="spanish"
+            />
+            <label for="french">French</label>
+            <input
+              type="checkbox"
+              id="french"
+              name="languages"
+              value="french"
+            />
+          </div>
+          <div class="validation-message" id="languages-validation"></div>
+        </div>
+        <div class="form-group">
+          <label for="declaration">
+            <input type="checkbox" id="declaration" required />
+            Hereby I declare that all the details given above are true.
+          </label>
+        </div>
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+    </div>
+    <script>
+      function validateForm(event) {
+        event.preventDefault();
+        clearValidationMessages();
+        const firstname = document.getElementById("firstname").value.trim();
+        const lastname = document.getElementById("lastname").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+          document.getElementById("confirm-password").value;
+        const gender = document.getElementById("gender").value;
+        const age = document.getElementById("age").value;
+        const phone = document.getElementById("phone").value.trim();
+        const address = document.getElementById("address").value.trim();
+        const state = document.getElementById("state").value.trim();
+        const country = document.getElementById("country").value.trim();
+        const languages = document.querySelectorAll(
+          'input[name="languages"]:checked'
+        );
+        let isValid = true;
+        if (firstname === "") {
+          isValid = false;
+          displayValidationMessage(
+            "firstname-validation",
+            "Please enter your first name."
+          );
+        }
+        if (lastname === "") {
+          isValid = false;
+          displayValidationMessage(
+            "lastname-validation",
+            "Please enter your last name."
+          );
+        }
+        if (email === "") {
+          isValid = false;
+          displayValidationMessage(
+            "email-validation",
+            "Please enter your email address."
+          );
+        } else if (!isValidEmail(email)) {
+          isValid = false;
+          displayValidationMessage(
+            "email-validation",
+            "Please enter a valid email address."
+          );
+        }
+        if (password === "") {
+          isValid = false;
+          displayValidationMessage(
+            "password-validation",
+            "Please enter a password."
+          );
+        }
+        if (confirmPassword === "") {
+          isValid = false;
+          displayValidationMessage(
+            "confirm-password-validation",
+            "Please re-enter your password."
+          );
+        } else if (password !== confirmPassword) {
+          isValid = false;
+          displayValidationMessage(
+            "confirm-password-validation",
+            "Passwords do not match."
+          );
+        }
+        if (gender === "") {
+          isValid = false;
+          displayValidationMessage(
+            "gender-validation",
+            "Please select your gender."
+          );
+        }
+        if (age === "" || isNaN(age) || age < 1) {
+          isValid = false;
+          displayValidationMessage(
+            "age-validation",
+            "Please enter a valid age."
+          );
+        }
+        if (phone === "") {
+          isValid = false;
+          displayValidationMessage(
+            "phone-validation",
+            "Please enter your phone number."
+          );
+        }
+        if (address === "") {
+          isValid = false;
+          displayValidationMessage(
+            "address-validation",
+            "Please enter your address."
+          );
+        }
+        if (state === "") {
+          isValid = false;
+          displayValidationMessage(
+            "state-validation",
+            "Please enter your state."
+          );
+        }
+        if (country === "") {
+          isValid = false;
+          displayValidationMessage(
+            "country-validation",
+            "Please enter your country."
+          );
+        }
+        if (languages.length === 0) {
+          isValid = false;
+          displayValidationMessage(
+            "languages-validation",
+            "Please select at least one language."
+          );
+        }
+        if (isValid) {
+          document.getElementById("registration-form").submit();
+        }
+      }
+      function displayValidationMessage(id, message) {
+        const element = document.getElementById(id);
+        element.textContent = message;
+      }
+      function clearValidationMessages() {
+        const validationMessages = document.querySelectorAll(
+          ".validation-message"
+        );
+        validationMessages.forEach((message) => {
+          message.textContent = "";
+        });
+      }
+      function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+      document
+        .getElementById("registration-form")
+        .addEventListener("submit", validateForm);
+    </script>
+  </body>
+</html>
